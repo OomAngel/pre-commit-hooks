@@ -1,0 +1,59 @@
+- id: no-plaintext-secrets
+  name: block plaintext credentials
+  entry: guard_secrets.sh
+  language: script
+  pass_filenames: true
+  stages: [pre-commit]
+
+- id: gitleaks-protect
+  name: gitleaks (staged secrets)
+  entry: gitleaks protect --staged
+  language: system
+  pass_filenames: false
+  stages: [pre-commit]
+
+- id: gitleaks-history
+  name: gitleaks (full history)
+  entry: gitleaks detect --verbose
+  language: system
+  pass_filenames: false
+  stages: [manual]
+
+- id: vulture
+  name: vulture (dead-code candidates)
+  entry: vulture
+  language: python
+  additional_dependencies: [vulture==2.11]
+  pass_filenames: false
+  stages: [manual]
+
+- id: refurb
+  name: refurb (modernisation suggestions)
+  entry: refurb
+  language: python
+  additional_dependencies: [refurb==2.0.0]
+  stages: [manual]
+
+- id: pycycle
+  name: pycycle (circular imports)
+  entry: pycycle
+  language: python
+  additional_dependencies: [pycycle==1.0.2]
+  pass_filenames: false
+  stages: [manual]
+
+- id: radon-cc
+  name: radon (complexity report)
+  entry: radon
+  language: python
+  additional_dependencies: [radon==6.0.1]
+  pass_filenames: false
+  stages: [manual]
+
+- id: xenon
+  name: xenon (complexity thresholds)
+  entry: xenon
+  language: python
+  additional_dependencies: [xenon==0.9.1]
+  pass_filenames: false
+  stages: [manual]

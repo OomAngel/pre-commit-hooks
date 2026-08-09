@@ -38,7 +38,7 @@
   name: pycycle (circular imports)
   entry: pycycle
   language: python
-  additional_dependencies: [pycycle==1.0.2]
+  additional_dependencies: [pycycle==0.0.8]  # 1.0.2 never existed on PyPI (latest is 0.0.x)
   pass_filenames: false
   stages: [manual]
 

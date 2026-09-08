@@ -57,3 +57,14 @@
   additional_dependencies: [xenon==0.9.1]
   pass_filenames: false
   stages: [manual]
+
+- id: ux-audit
+  name: interface audit (accessibility, responsive, flow)
+  entry: ux-audit
+  language: python
+  additional_dependencies: ["ux-audit @ git+https://github.com/OomAngel/ux-audit"]
+  pass_filenames: false
+  # Manual, like gitleaks-history and vulture: it launches a browser and drives
+  # the interface, so it is far too slow for every commit. Consuming repos pass
+  # their built site directory and any --regions they want mapped.
+  stages: [manual]
